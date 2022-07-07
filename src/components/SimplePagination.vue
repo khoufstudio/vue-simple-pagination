@@ -37,8 +37,12 @@ const result = computed(() => {
         pagination.value.push(0)
         let lastValue: Array<number> = []
         for (let z = (totalPage.value); z > (totalPage.value - boundary.value); z--) {
-          if (z <= totalPage.value) {
-            lastValue.push(z)
+            if (z <= totalPage.value) {
+            if (!pagination.value.includes(z)) {
+              lastValue.push(z)
+            } else {
+              lastValue.splice(boundary.value, 1)
+            }
           }
         }
 
