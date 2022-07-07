@@ -19,7 +19,7 @@ const sibling = ref<number>(9)
     </div>
 
     <!-- three dot after first boundary -->
-    <p>...</p>
+    <p v-if="totalPage > 3 && boundary > 0">...</p>
 
     <!-- rest buttons  -->
     <div v-for="x in totalPage" :key="x">
@@ -27,7 +27,7 @@ const sibling = ref<number>(9)
     </div>
 
     <!-- three dot after last boundary -->
-    <p>...</p>
+    <p v-if="totalPage > 3 && boundary > 0">...</p>
 
     <!-- boundary for last button -->
     <div v-for="x in (boundary + 1)" :key="x">
@@ -35,7 +35,7 @@ const sibling = ref<number>(9)
     </div>
 
     <!-- last button -->
-    <button :class="[currentPage === totalPage ? 'bg-blue-100' : '']">{{ totalPage }}</button>
+    <button  v-if="totalPage > 1" :class="[currentPage === totalPage ? 'bg-blue-100' : '']">{{ totalPage }}</button>
   </div>
 
   <!-- input container -->
