@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-const totalPage = ref<number>(10)
-const currentPage = ref<number>(5)
-const boundary = ref<number>(1)
+const totalPage = ref<number>(150)
+const currentPage = ref<number>(6)
+const boundary = ref<number>(2)
 const sibling = ref<number>(1)
 const disablePrevious = ref<boolean>(true)
 const disableNext = ref<boolean>(true)
@@ -88,8 +88,8 @@ function toggleDisable() {
 
 <template>
   <div class="border-2 border-dashed border-slate-400 p-4 mx-32 rounded">
-    <div class="mt-[-20px] mb-5">
-      <p class="bg-white px-10 text-slate-400">Pagination</p>
+    <div class="mt-[-30px] mb-5">
+      <span class="bg-white px-3 text-slate-400">Pagination</span>
     </div>
     <div class="flex gap-2 justify-center">
       <button @click="firstHandle" :disabled="disableFirst">First</button>
@@ -150,13 +150,13 @@ function toggleDisable() {
 
         <!-- last -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">last</label>
+          <label class="mr-2" for="sibling">Last</label>
           <input type="checkbox" name="previous" @change="toggleLast">
         </legend>
 
         <!-- disable -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">disable</label>
+          <label class="mr-2" for="sibling">Disable</label>
           <input type="checkbox" name="previous" @change="toggleDisable">
         </legend>
       </div>
