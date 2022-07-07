@@ -9,21 +9,19 @@ const sibling = ref<number>(1)
 const pagination = ref<Array<number>>([1,2])
 
 const result = computed(() => { 
-  // if (totalPage.value < (sibling.value * 2)) {
-    // pagination.value = Array.from({length: totalPage.value}, (_, i) => i + 1) 
-  // }
-
-  if (boundary.value > 0 && boundary.value < totalPage.value) {
+  if (boundary.value > 0 && boundary.value < totalPage.value && totalPage.value > (currentPage.value + 2 * boundary.value + 2 * sibling.value)) {
     pagination.value = Array.from({length: boundary.value}, (_, i) => i + 1) 
     pagination.value.push(0)
     
     if (sibling.value > 0) {
       // rest value
       for (let y = (currentPage.value - sibling.value); y < (currentPage.value + sibling.value + 1); y++) {
-        pagination.value.push(y)
+        if (!pagination.value.includes(y)) {
+          pagination.value.push(y)
+        } else {
+          pagination.value.splice(boundary.value, 1)
+        }
       }
-
-      // pagination.value = [...pagination.value, ]
 
       pagination.value.push(0)
       let lastValue: Array<number> = []
@@ -35,13 +33,6 @@ const result = computed(() => {
 
       pagination.value = [...pagination.value, ...lastValue]
     }
-
-
-    // pagination.value.push(totalPage.value)
-
-    // pagination.value.splice(boundary.value, 0, 0)
-
-    // pagination.value.splice(pagination.value.length - boundary.value, 0, 0)
   } else {
     pagination.value = Array.from({length: totalPage.value}, (_, i) => i + 1) 
   }
