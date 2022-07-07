@@ -7,6 +7,9 @@ const boundary = ref<number>(1)
 const sibling = ref<number>(1)
 const disablePrevious = ref<boolean>(true)
 const disableNext = ref<boolean>(true)
+const disableFirst = ref<boolean>(true)
+const disableLast = ref<boolean>(true)
+const disableAll = ref<boolean>(true)
 
 const pagination = ref<Array<number>>([1,2])
 
@@ -62,10 +65,30 @@ function nextHandle() {
   }
 }
 
+function toggleFirst() {
+  disableFirst.value = !disableFirst.value
+}
+
+function firstHandle() {
+  currentPage.value = currentPage.value 
+}
+
+function toggleLast() {
+  disableLast.value = !disableLast.value
+}
+
+function lastHandle() {
+  currentPage.value = totalPage.value
+}
+
+function toggleDisable() {
+  disableAll.value = !disableAll.value
+}
 </script>
 
 <template>
   <div class="flex gap-2 justify-center">
+    <button @click="firstHandle" :disabled="disableFirst">First</button>
     <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
     <div v-for="x in (result)" :key="x">
       <button 
@@ -73,6 +96,7 @@ function nextHandle() {
       >{{ x === 0 ? '..' : x }}</button>
     </div>
     <button @click="nextHandle" :disabled="disableNext">Next</button>
+    <button @click="lastHandle" :disabled="disableLast">Last</button>
   </div>
 
   <!-- input container -->
@@ -111,6 +135,24 @@ function nextHandle() {
     <legend>
       <label class="mr-2" for="sibling">Next</label>
       <input type="checkbox" name="previous" @change="toggleNext">
+    </legend>
+
+    <!-- first -->
+    <legend>
+      <label class="mr-2" for="sibling">First</label>
+      <input type="checkbox" name="previous" @change="toggleFirst">
+    </legend>
+
+    <!-- last -->
+    <legend>
+      <label class="mr-2" for="sibling">last</label>
+      <input type="checkbox" name="previous" @change="toggleLast">
+    </legend>
+
+    <!-- disable -->
+    <legend>
+      <label class="mr-2" for="sibling">disable</label>
+      <input type="checkbox" name="previous" @change="toggleDisable">
     </legend>
   </div>
 </template>
