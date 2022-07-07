@@ -9,6 +9,7 @@ const sibling = ref<number>(9)
 </script>
 
 <template>
+  <!-- <div v-if="totalPage > 2" class="flex gap-2 justify-center"> -->
   <div class="flex gap-2 justify-center">
     <!-- first button -->
     <button :class="[currentPage === 1 ? 'bg-blue-100' : '']" v-if="totalPage > 0">1</button>
@@ -21,9 +22,21 @@ const sibling = ref<number>(9)
     <!-- three dot after first boundary -->
     <p v-if="totalPage > 3 && boundary > 0">...</p>
 
-    <!-- rest buttons  -->
-    <div v-for="x in totalPage" :key="x">
-      <button :class="[currentPage === x ? 'bg-blue-100' : '']" v-if="x > (1 + boundary) && x < totalPage">{{ x }}</button>
+    <div v-if="currentPage > (boundary + 1) && currentPage < (totalPage - boundary)" class="flex gap-2">
+      <!-- siblings before current page  -->
+      <div class="flex flex-row-reverse gap-2">
+        <div v-for="x in sibling" :key="x">
+          <button>{{ currentPage - x }}</button>
+        </div>
+      </div>
+
+      <!-- current page -->
+      <button class="bg-blue-100">{{ currentPage }}</button>
+
+      <!-- siblings after current page  -->
+      <div v-for="x in sibling" :key="x">
+        <button>{{ currentPage + x }}</button>
+      </div>
     </div>
 
     <!-- three dot after last boundary -->
