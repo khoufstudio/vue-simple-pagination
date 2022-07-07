@@ -137,33 +137,33 @@ function toCurrentPage(numberPage:number) {
     <div class="mt-6 flex justify-center gap-10 text-slate-500">
       <div>
         <!-- total page -->
-        <legend class="flex justify-between mb-3">
-          <label class="mr-2" for="totalPage">Total page</label>
+        <legend class="flex justify-between mb-3 items-center">
+          <label class="mr-4" for="totalPage">Total page</label>
           <input class="border border-slate-200 w-12 text-center" type="number" v-model="totalPage">
         </legend>
 
         <!-- current page -->
-        <legend class="flex justify-between mb-3">
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="currentPage">Current page</label>
           <input class="border border-slate-200 w-12 text-center" type="number" v-model="currentPage">
         </legend>
 
         <!-- boundary -->
-        <legend class="flex justify-between mb-3">
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="boundary">Boundary</label>
           <input class="border border-slate-200 w-12 text-center" type="number" v-model="boundary">
         </legend>
 
         <!-- sibling -->
-        <legend class="flex justify-between mb-3">
-          <label class="mr-2" for="sibling">Sibling</label>
+        <legend class="flex justify-between mb-3 items-center">
+          <label class="mr-4" for="sibling">Sibling</label>
           <input class="border border-slate-200 w-12 text-center" type="number" v-model="sibling">
         </legend>
       </div>
       <div>
         <!-- previous -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">Previous</label>
+          <label class="mr-4" for="sibling">Previous</label>
           <input type="checkbox" name="previous" @change="togglePrevious">
         </legend>
         
