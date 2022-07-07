@@ -14,7 +14,11 @@ const disableAll = ref<boolean>(true)
 const pagination = ref<Array<number>>([1,2])
 
 const result = computed(() => { 
-  if (boundary.value > 0 && boundary.value < totalPage.value && totalPage.value > (currentPage.value + 2 * boundary.value + 2 * sibling.value)) {
+  if (
+    boundary.value > 0 
+    && boundary.value < totalPage.value 
+    // && totalPage.value > (currentPage.value + 2 * boundary.value + 2 * sibling.value)
+  ) {
     pagination.value = Array.from({length: boundary.value}, (_, i) => i + 1) 
     pagination.value.push(0)
     
@@ -28,15 +32,20 @@ const result = computed(() => {
         }
       }
 
-      pagination.value.push(0)
-      let lastValue: Array<number> = []
-      for (let z = (totalPage.value); z > (totalPage.value - boundary.value); z--) {
-        lastValue.push(z)
+      if (currentPage.value >= (totalPage.value - sibling.value)) {
+      } else {
+        pagination.value.push(0)
+        let lastValue: Array<number> = []
+        for (let z = (totalPage.value); z > (totalPage.value - boundary.value); z--) {
+          if (z <= totalPage.value) {
+            lastValue.push(z)
+          }
+        }
+
+        lastValue = lastValue.sort((a, b) => a - b)
+
+        pagination.value = [...pagination.value, ...lastValue]
       }
-
-      lastValue = lastValue.sort((a, b) => a - b)
-
-      pagination.value = [...pagination.value, ...lastValue]
     }
   } else {
     pagination.value = Array.from({length: totalPage.value}, (_, i) => i + 1) 
@@ -86,7 +95,9 @@ function toggleDisable() {
 }
 
 function toCurrentPage(numberPage:number) {
-  currentPage.value = numberPage
+  if (currentPage.value < totalPage.value) {
+    currentPage.value = numberPage
+  }
 }
 </script>
 
@@ -96,16 +107,16 @@ function toCurrentPage(numberPage:number) {
       <span class="bg-white px-3 text-slate-400">Pagination</span>
     </div>
     <div class="flex gap-2 justify-center text-slate-500">
-      <button @click="firstHandle" :disabled="disableFirst">First</button>
-      <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
+      <button class="hover:cursor-pointer" @click="firstHandle" :disabled="disableFirst">First</button>
+      <button class="cursor-pointer" @click="previousHandle" :disabled="disablePrevious">Previous</button>
       <div v-for="x in (result)" :key="x">
         <button 
           @click="toCurrentPage(x)"
-          :class="[currentPage === x ? 'bg-blue-100' : '', 'rounded-full p-2 mx-2']" 
+          :class="[currentPage === x ? 'bg-blue-100' : '', 'cursor-pointer rounded-full p-2 mx-2']" 
         >{{ x === 0 ? '..' : x }}</button>
       </div>
-      <button @click="nextHandle" :disabled="disableNext">Next</button>
-      <button @click="lastHandle" :disabled="disableLast">Last</button>
+      <button class="cursor-pointer" @click="nextHandle" :disabled="disableNext">Next</button>
+      <button class="cursor-pointer" @click="lastHandle" :disabled="disableLast">Last</button>
     </div>
     <!-- input container -->
 
