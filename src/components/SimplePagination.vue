@@ -1,54 +1,62 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
-const totalPage = ref<number>(9)
-const currentPage = ref<number>(9)
-const boundary = ref<number>(9)
-const sibling = ref<number>(9)
+const totalPage = ref<number>(10)
+const currentPage = ref<number>(5)
+const boundary = ref<number>(1)
+const sibling = ref<number>(1)
 
+const pagination = ref<Array<number>>([1,2])
+
+const result = computed(() => { 
+  // if (totalPage.value < (sibling.value * 2)) {
+    // pagination.value = Array.from({length: totalPage.value}, (_, i) => i + 1) 
+  // }
+
+  if (boundary.value > 0 && boundary.value < totalPage.value) {
+    pagination.value = Array.from({length: boundary.value}, (_, i) => i + 1) 
+    pagination.value.push(0)
+    
+    if (sibling.value > 0) {
+      // rest value
+      for (let y = (currentPage.value - sibling.value); y < (currentPage.value + sibling.value + 1); y++) {
+        pagination.value.push(y)
+      }
+
+      // pagination.value = [...pagination.value, ]
+
+      pagination.value.push(0)
+      let lastValue: Array<number> = []
+      for (let z = (totalPage.value); z > (totalPage.value - boundary.value); z--) {
+        lastValue.push(z)
+      }
+
+      lastValue = lastValue.sort((a, b) => a - b)
+
+      pagination.value = [...pagination.value, ...lastValue]
+    }
+
+
+    // pagination.value.push(totalPage.value)
+
+    // pagination.value.splice(boundary.value, 0, 0)
+
+    // pagination.value.splice(pagination.value.length - boundary.value, 0, 0)
+  } else {
+    pagination.value = Array.from({length: totalPage.value}, (_, i) => i + 1) 
+  }
+
+  return pagination.value 
+})
 </script>
 
 <template>
-  <!-- <div v-if="totalPage > 2" class="flex gap-2 justify-center"> -->
   <div class="flex gap-2 justify-center">
-    <!-- first button -->
-    <button :class="[currentPage === 1 ? 'bg-blue-100' : '']" v-if="totalPage > 0">1</button>
-
-    <!-- boundary for first button -->
-    <div v-for="x in (boundary + 1)" :key="x">
-      <button :class="[currentPage === x ? 'bg-blue-100' : '']" v-if="x > 1 && x < totalPage">{{ x }}</button>
+    <div v-for="x in (result)" :key="x">
+      <button 
+        :class="[currentPage === x ? 'bg-blue-100' : '']" 
+      >{{ x === 0 ? '..' : x }}</button>
     </div>
-
-    <!-- three dot after first boundary -->
-    <p v-if="totalPage > 3 && boundary > 0 && ((boundary + 1) > currentPage - sibling)">...</p>
-
-    <div v-if="currentPage > (boundary + 1) && currentPage < (totalPage - boundary)" class="flex gap-2">
-      <!-- siblings before current page  -->
-      <div class="flex flex-row-reverse gap-2">
-        <div v-for="x in sibling" :key="x">
-          <button>{{ currentPage - x }}</button>
-        </div>
-      </div>
-
-      <!-- current page -->
-      <button class="bg-blue-100">{{ currentPage }}</button>
-
-      <!-- siblings after current page  -->
-      <div v-for="x in sibling" :key="x">
-        <button>{{ currentPage + x }}</button>
-      </div>
-    </div>
-
-    <!-- three dots after last boundary -->
-    <p v-if="totalPage > 3 && boundary > 0 && currentPage > (boundary + sibling)">...</p>
-
-    <!-- boundary for last button -->
-    <div v-for="x in (boundary + 1)" :key="x">
-      <button :class="[currentPage === totalPage - (boundary - (x - 2)) ? 'bg-blue-100' : '']" v-if="x > 1 && x < totalPage">{{ totalPage - (boundary - (x - 2)) }}</button>
-    </div>
-
-    <!-- last button -->
-    <button  v-if="totalPage > 1" :class="[currentPage === totalPage ? 'bg-blue-100' : '']">{{ totalPage }}</button>
   </div>
 
   <!-- input container -->
