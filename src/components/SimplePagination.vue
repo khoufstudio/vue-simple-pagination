@@ -87,7 +87,7 @@ function toggleDisable() {
 </script>
 
 <template>
-  <div class="border border-green-100">
+  <div class="border border-green-100 p-4 mx-32 rounded">
     <div class="flex gap-2 justify-center">
       <button @click="firstHandle" :disabled="disableFirst">First</button>
       <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
@@ -100,59 +100,59 @@ function toggleDisable() {
       <button @click="lastHandle" :disabled="disableLast">Last</button>
     </div>
     <!-- input container -->
-    <div class="mt-4 flex justify-center">
+  <div class="mt-4 flex justify-center gap-10">
       <div>
         <!-- total page -->
-        <legend>
+        <legend class="flex justify-between mb-3">
           <label class="mr-2" for="totalPage">Total page</label>
-          <input class="border border-slate-200" type="number" v-model="totalPage">
+          <input class="border border-slate-200 w-12" type="number" v-model="totalPage">
         </legend>
 
         <!-- current page -->
-        <legend>
+        <legend class="flex justify-between mb-3">
           <label class="mr-2" for="currentPage">Current page</label>
-          <input class="border border-slate-200" type="number" v-model="currentPage">
+          <input class="border border-slate-200 w-12" type="number" v-model="currentPage">
         </legend>
 
         <!-- boundary -->
-        <legend>
+        <legend class="flex justify-between mb-3">
           <label class="mr-2" for="boundary">Boundary</label>
-          <input class="border border-slate-200" type="number" v-model="boundary">
+          <input class="border border-slate-200 w-12" type="number" v-model="boundary">
         </legend>
 
         <!-- sibling -->
-        <legend>
+        <legend class="flex justify-between mb-3">
           <label class="mr-2" for="sibling">Sibling</label>
-          <input class="border border-slate-200" type="number" v-model="sibling">
+          <input class="border border-slate-200 w-12" type="number" v-model="sibling">
         </legend>
       </div>
       <div>
         <!-- previous -->
-        <legend>
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="sibling">Previous</label>
           <input type="checkbox" name="previous" @change="togglePrevious">
         </legend>
         
         <!-- next -->
-        <legend>
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="sibling">Next</label>
           <input type="checkbox" name="previous" @change="toggleNext">
         </legend>
 
         <!-- first -->
-        <legend>
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="sibling">First</label>
           <input type="checkbox" name="previous" @change="toggleFirst">
         </legend>
 
         <!-- last -->
-        <legend>
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="sibling">last</label>
           <input type="checkbox" name="previous" @change="toggleLast">
         </legend>
 
         <!-- disable -->
-        <legend>
+        <legend class="flex justify-between mb-3 items-center">
           <label class="mr-2" for="sibling">disable</label>
           <input type="checkbox" name="previous" @change="toggleDisable">
         </legend>
