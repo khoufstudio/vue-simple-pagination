@@ -6,6 +6,7 @@ const currentPage = ref<number>(5)
 const boundary = ref<number>(1)
 const sibling = ref<number>(1)
 const disablePrevious = ref<boolean>(true)
+const disableNext = ref<boolean>(true)
 
 const pagination = ref<Array<number>>([1,2])
 
@@ -46,7 +47,19 @@ function togglePrevious() {
 }
 
 function previousHandle() {
-  currentPage.value = currentPage.value - 1
+  if (currentPage.value > 0) {
+    currentPage.value = currentPage.value - 1
+  }
+}
+
+function toggleNext() {
+  disableNext.value = !disableNext.value
+}
+
+function nextHandle() {
+  if (currentPage.value < totalPage.value) {
+    currentPage.value = currentPage.value + 1
+  }
 }
 
 </script>
@@ -59,6 +72,7 @@ function previousHandle() {
         :class="[currentPage === x ? 'bg-blue-100' : '']" 
       >{{ x === 0 ? '..' : x }}</button>
     </div>
+    <button @click="nextHandle" :disabled="disableNext">Next</button>
   </div>
 
   <!-- input container -->
@@ -87,11 +101,16 @@ function previousHandle() {
       <input class="border border-slate-200" type="number" v-model="sibling">
     </legend>
 
-    <!-- sibling -->
+    <!-- previous -->
     <legend>
       <label class="mr-2" for="sibling">Previous</label>
       <input type="checkbox" name="previous" @change="togglePrevious">
     </legend>
     
+    <!-- next -->
+    <legend>
+      <label class="mr-2" for="sibling">Next</label>
+      <input type="checkbox" name="previous" @change="toggleNext">
+    </legend>
   </div>
 </template>
