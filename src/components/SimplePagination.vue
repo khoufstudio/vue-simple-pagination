@@ -20,7 +20,7 @@ const sibling = ref<number>(9)
     </div>
 
     <!-- three dot after first boundary -->
-    <p v-if="totalPage > 3 && boundary > 0">...</p>
+    <p v-if="totalPage > 3 && boundary > 0 && ((boundary + 1) > currentPage - sibling)">...</p>
 
     <div v-if="currentPage > (boundary + 1) && currentPage < (totalPage - boundary)" class="flex gap-2">
       <!-- siblings before current page  -->
@@ -39,8 +39,8 @@ const sibling = ref<number>(9)
       </div>
     </div>
 
-    <!-- three dot after last boundary -->
-    <p v-if="totalPage > 3 && boundary > 0">...</p>
+    <!-- three dots after last boundary -->
+    <p v-if="totalPage > 3 && boundary > 0 && currentPage > (boundary + sibling)">...</p>
 
     <!-- boundary for last button -->
     <div v-for="x in (boundary + 1)" :key="x">
