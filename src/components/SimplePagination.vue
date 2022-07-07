@@ -13,9 +13,25 @@ const sibling = ref<number>(9)
     <!-- first button -->
     <button :class="[currentPage === 1 ? 'bg-blue-100' : '']" v-if="totalPage > 0">1</button>
 
+    <!-- boundary for first button -->
+    <div v-for="x in (boundary + 1)" :key="x">
+      <button :class="[currentPage === x ? 'bg-blue-100' : '']" v-if="x > 1 && x < totalPage">{{ x }}</button>
+    </div>
+
+    <!-- three dot after first boundary -->
+    <p>...</p>
+
     <!-- rest buttons  -->
     <div v-for="x in totalPage" :key="x">
-      <button :class="[currentPage === x ? 'bg-blue-100' : '']" v-if="x > 1 && x < totalPage">{{ x }}</button>
+      <button :class="[currentPage === x ? 'bg-blue-100' : '']" v-if="x > (1 + boundary) && x < totalPage">{{ x }}</button>
+    </div>
+
+    <!-- three dot after last boundary -->
+    <p>...</p>
+
+    <!-- boundary for last button -->
+    <div v-for="x in (boundary + 1)" :key="x">
+      <button :class="[currentPage === totalPage - (boundary - (x - 2)) ? 'bg-blue-100' : '']" v-if="x > 1 && x < totalPage">{{ totalPage - (boundary - (x - 2)) }}</button>
     </div>
 
     <!-- last button -->
