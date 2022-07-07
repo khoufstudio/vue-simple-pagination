@@ -84,6 +84,10 @@ function lastHandle() {
 function toggleDisable() {
   disableAll.value = !disableAll.value
 }
+
+function toCurrentPage(numberPage:number) {
+  currentPage.value = numberPage
+}
 </script>
 
 <template>
@@ -96,14 +100,16 @@ function toggleDisable() {
       <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
       <div v-for="x in (result)" :key="x">
         <button 
-          :class="[currentPage === x ? 'bg-blue-100' : '']" 
+          @click="toCurrentPage(x)"
+          :class="[currentPage === x ? 'bg-blue-100' : '', 'w-[20px] rounded-full']" 
         >{{ x === 0 ? '..' : x }}</button>
       </div>
       <button @click="nextHandle" :disabled="disableNext">Next</button>
       <button @click="lastHandle" :disabled="disableLast">Last</button>
     </div>
     <!-- input container -->
-  <div class="mt-4 flex justify-center gap-10">
+
+    <div class="mt-6 flex justify-center gap-10">
       <div>
         <!-- total page -->
         <legend class="flex justify-between mb-3">
