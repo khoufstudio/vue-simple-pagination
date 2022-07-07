@@ -5,6 +5,7 @@ const totalPage = ref<number>(10)
 const currentPage = ref<number>(5)
 const boundary = ref<number>(1)
 const sibling = ref<number>(1)
+const disablePrevious = ref<boolean>(true)
 
 const pagination = ref<Array<number>>([1,2])
 
@@ -39,10 +40,20 @@ const result = computed(() => {
 
   return pagination.value 
 })
+
+function togglePrevious() {
+  disablePrevious.value = !disablePrevious.value
+}
+
+function previousHandle() {
+  currentPage.value = currentPage.value - 1
+}
+
 </script>
 
 <template>
   <div class="flex gap-2 justify-center">
+    <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
     <div v-for="x in (result)" :key="x">
       <button 
         :class="[currentPage === x ? 'bg-blue-100' : '']" 
@@ -79,7 +90,7 @@ const result = computed(() => {
     <!-- sibling -->
     <legend>
       <label class="mr-2" for="sibling">Previous</label>
-      <input type="checkbox" name="previous" >
+      <input type="checkbox" name="previous" @change="togglePrevious">
     </legend>
     
   </div>
