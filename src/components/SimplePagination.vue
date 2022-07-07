@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { ChevronRightIcon, ChevronDoubleRightIcon, ChevronLeftIcon, ChevronDoubleLeftIcon } from '@heroicons/vue/solid'
 
-const totalPage = ref<number>(150)
+const totalPage = ref<number>(10)
 const currentPage = ref<number>(6)
 const boundary = ref<number>(2)
 const sibling = ref<number>(1)
@@ -22,7 +23,7 @@ const result = computed(() => {
     pagination.value = Array.from({length: boundary.value}, (_, i) => i + 1) 
     pagination.value.push(0)
     
-    if (sibling.value > 0) {
+    if (sibling.value > 0 && sibling.value < totalPage.value) {
       // rest value
       for (let y = (currentPage.value - sibling.value); y < (currentPage.value + sibling.value + 1); y++) {
         if (!pagination.value.includes(y)) {
@@ -32,22 +33,20 @@ const result = computed(() => {
         }
       }
 
-      if (currentPage.value >= (totalPage.value - sibling.value)) {
-      } else {
+      let lastValue: Array<number> = []
+      if (currentPage.value < (totalPage.value - boundary.value)) {
         pagination.value.push(0)
-        let lastValue: Array<number> = []
-        for (let z = (totalPage.value); z > (totalPage.value - boundary.value); z--) {
-            if (z <= totalPage.value) {
-            if (!pagination.value.includes(z)) {
-              lastValue.push(z)
-            } else {
-              lastValue.splice(boundary.value, 1)
-            }
-          }
+
+        for (let z = totalPage.value + 1 - boundary.value; z <= totalPage.value; z++) {
+          lastValue.push(z)
         }
+      } 
+      // else {
+      //   lastValue.push(totalPage.value)
+      // }
 
+      if (lastValue.length > 0) {
         lastValue = lastValue.sort((a, b) => a - b)
-
         pagination.value = [...pagination.value, ...lastValue]
       }
     }
@@ -58,6 +57,7 @@ const result = computed(() => {
   return pagination.value 
 })
 
+
 function togglePrevious() {
   disablePrevious.value = !disablePrevious.value
 }
@@ -65,7 +65,10 @@ function togglePrevious() {
 function previousHandle() {
   if (currentPage.value > 0) {
     currentPage.value = currentPage.value - 1
+  } else {
+    currentPage.value = currentPage.value
   }
+
 }
 
 function toggleNext() {
@@ -75,6 +78,8 @@ function toggleNext() {
 function nextHandle() {
   if (currentPage.value < totalPage.value) {
     currentPage.value = currentPage.value + 1
+  } else {
+    currentPage.value = currentPage.value
   }
 }
 
@@ -99,9 +104,13 @@ function toggleDisable() {
 }
 
 function toCurrentPage(numberPage:number) {
+  debugger
   if (currentPage.value < totalPage.value) {
     currentPage.value = numberPage
+  } else {
+    currentPage.value = currentPage.value
   }
+
 }
 </script>
 
@@ -111,16 +120,17 @@ function toCurrentPage(numberPage:number) {
       <span class="bg-white px-3 text-slate-400">Pagination</span>
     </div>
     <div class="flex gap-2 justify-center text-slate-500">
-      <button class="hover:cursor-pointer" @click="firstHandle" :disabled="disableFirst">First</button>
-      <button class="cursor-pointer" @click="previousHandle" :disabled="disablePrevious">Previous</button>
+      <button class="hover:cursor-pointer" @click="firstHandle" :disabled="disableFirst"><ChevronDoubleLeftIcon class="text-slate-400 w-5" /></button>
+      <button class="cursor-pointer" @click="previousHandle" :disabled="disablePrevious"><ChevronLeftIcon class="text-slate-400 w-5" /></button>
+
       <div v-for="x in (result)" :key="x">
         <button 
           @click="toCurrentPage(x)"
           :class="[currentPage === x ? 'bg-blue-100' : '', 'cursor-pointer rounded-full p-2 mx-2']" 
         >{{ x === 0 ? '..' : x }}</button>
       </div>
-      <button class="cursor-pointer" @click="nextHandle" :disabled="disableNext">Next</button>
-      <button class="cursor-pointer" @click="lastHandle" :disabled="disableLast">Last</button>
+      <button class="cursor-pointer" @click="nextHandle" :disabled="disableNext"><ChevronRightIcon class="text-slate-400 w-5" /></button>
+      <button class="cursor-pointer" @click="lastHandle" :disabled="disableLast"><ChevronDoubleRightIcon class="text-slate-400 w-4" /></button>
     </div>
     <!-- input container -->
 
