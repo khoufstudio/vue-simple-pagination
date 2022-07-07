@@ -87,72 +87,77 @@ function toggleDisable() {
 </script>
 
 <template>
-  <div class="flex gap-2 justify-center">
-    <button @click="firstHandle" :disabled="disableFirst">First</button>
-    <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
-    <div v-for="x in (result)" :key="x">
-      <button 
-        :class="[currentPage === x ? 'bg-blue-100' : '']" 
-      >{{ x === 0 ? '..' : x }}</button>
+  <div class="border border-green-100">
+    <div class="flex gap-2 justify-center">
+      <button @click="firstHandle" :disabled="disableFirst">First</button>
+      <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
+      <div v-for="x in (result)" :key="x">
+        <button 
+          :class="[currentPage === x ? 'bg-blue-100' : '']" 
+        >{{ x === 0 ? '..' : x }}</button>
+      </div>
+      <button @click="nextHandle" :disabled="disableNext">Next</button>
+      <button @click="lastHandle" :disabled="disableLast">Last</button>
     </div>
-    <button @click="nextHandle" :disabled="disableNext">Next</button>
-    <button @click="lastHandle" :disabled="disableLast">Last</button>
-  </div>
+    <!-- input container -->
+    <div class="mt-4 flex justify-center">
+      <div>
+        <!-- total page -->
+        <legend>
+          <label class="mr-2" for="totalPage">Total page</label>
+          <input class="border border-slate-200" type="number" v-model="totalPage">
+        </legend>
 
-  <!-- input container -->
-  <div class="mt-4">
-    <!-- total page -->
-    <legend>
-      <label class="mr-2" for="totalPage">Total page</label>
-      <input class="border border-slate-200" type="number" v-model="totalPage">
-    </legend>
+        <!-- current page -->
+        <legend>
+          <label class="mr-2" for="currentPage">Current page</label>
+          <input class="border border-slate-200" type="number" v-model="currentPage">
+        </legend>
 
-    <!-- current page -->
-    <legend>
-      <label class="mr-2" for="currentPage">Current page</label>
-      <input class="border border-slate-200" type="number" v-model="currentPage">
-    </legend>
+        <!-- boundary -->
+        <legend>
+          <label class="mr-2" for="boundary">Boundary</label>
+          <input class="border border-slate-200" type="number" v-model="boundary">
+        </legend>
 
-    <!-- boundary -->
-    <legend>
-      <label class="mr-2" for="boundary">Boundary</label>
-      <input class="border border-slate-200" type="number" v-model="boundary">
-    </legend>
+        <!-- sibling -->
+        <legend>
+          <label class="mr-2" for="sibling">Sibling</label>
+          <input class="border border-slate-200" type="number" v-model="sibling">
+        </legend>
+      </div>
+      <div>
+        <!-- previous -->
+        <legend>
+          <label class="mr-2" for="sibling">Previous</label>
+          <input type="checkbox" name="previous" @change="togglePrevious">
+        </legend>
+        
+        <!-- next -->
+        <legend>
+          <label class="mr-2" for="sibling">Next</label>
+          <input type="checkbox" name="previous" @change="toggleNext">
+        </legend>
 
-    <!-- sibling -->
-    <legend>
-      <label class="mr-2" for="sibling">Sibling</label>
-      <input class="border border-slate-200" type="number" v-model="sibling">
-    </legend>
+        <!-- first -->
+        <legend>
+          <label class="mr-2" for="sibling">First</label>
+          <input type="checkbox" name="previous" @change="toggleFirst">
+        </legend>
 
-    <!-- previous -->
-    <legend>
-      <label class="mr-2" for="sibling">Previous</label>
-      <input type="checkbox" name="previous" @change="togglePrevious">
-    </legend>
-    
-    <!-- next -->
-    <legend>
-      <label class="mr-2" for="sibling">Next</label>
-      <input type="checkbox" name="previous" @change="toggleNext">
-    </legend>
+        <!-- last -->
+        <legend>
+          <label class="mr-2" for="sibling">last</label>
+          <input type="checkbox" name="previous" @change="toggleLast">
+        </legend>
 
-    <!-- first -->
-    <legend>
-      <label class="mr-2" for="sibling">First</label>
-      <input type="checkbox" name="previous" @change="toggleFirst">
-    </legend>
+        <!-- disable -->
+        <legend>
+          <label class="mr-2" for="sibling">disable</label>
+          <input type="checkbox" name="previous" @change="toggleDisable">
+        </legend>
+      </div>
 
-    <!-- last -->
-    <legend>
-      <label class="mr-2" for="sibling">last</label>
-      <input type="checkbox" name="previous" @change="toggleLast">
-    </legend>
-
-    <!-- disable -->
-    <legend>
-      <label class="mr-2" for="sibling">disable</label>
-      <input type="checkbox" name="previous" @change="toggleDisable">
-    </legend>
+    </div>
   </div>
 </template>
