@@ -95,13 +95,13 @@ function toCurrentPage(numberPage:number) {
     <div class="mt-[-30px] mb-5">
       <span class="bg-white px-3 text-slate-400">Pagination</span>
     </div>
-    <div class="flex gap-2 justify-center">
+    <div class="flex gap-2 justify-center text-slate-500">
       <button @click="firstHandle" :disabled="disableFirst">First</button>
       <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
       <div v-for="x in (result)" :key="x">
         <button 
           @click="toCurrentPage(x)"
-          :class="[currentPage === x ? 'bg-blue-100' : '', 'w-[20px] rounded-full']" 
+          :class="[currentPage === x ? 'bg-blue-100' : '', 'rounded-full p-2 mx-2']" 
         >{{ x === 0 ? '..' : x }}</button>
       </div>
       <button @click="nextHandle" :disabled="disableNext">Next</button>
@@ -109,30 +109,30 @@ function toCurrentPage(numberPage:number) {
     </div>
     <!-- input container -->
 
-    <div class="mt-6 flex justify-center gap-10">
+    <div class="mt-6 flex justify-center gap-10 text-slate-500">
       <div>
         <!-- total page -->
         <legend class="flex justify-between mb-3">
           <label class="mr-2" for="totalPage">Total page</label>
-          <input class="border border-slate-200 w-12" type="number" v-model="totalPage">
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="totalPage">
         </legend>
 
         <!-- current page -->
         <legend class="flex justify-between mb-3">
           <label class="mr-2" for="currentPage">Current page</label>
-          <input class="border border-slate-200 w-12" type="number" v-model="currentPage">
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="currentPage">
         </legend>
 
         <!-- boundary -->
         <legend class="flex justify-between mb-3">
           <label class="mr-2" for="boundary">Boundary</label>
-          <input class="border border-slate-200 w-12" type="number" v-model="boundary">
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="boundary">
         </legend>
 
         <!-- sibling -->
         <legend class="flex justify-between mb-3">
           <label class="mr-2" for="sibling">Sibling</label>
-          <input class="border border-slate-200 w-12" type="number" v-model="sibling">
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="sibling">
         </legend>
       </div>
       <div>
