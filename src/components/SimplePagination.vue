@@ -87,7 +87,10 @@ function toggleDisable() {
 </script>
 
 <template>
-  <div class="border border-green-100 p-4 mx-32 rounded">
+  <div class="border-2 border-dashed border-slate-400 p-4 mx-32 rounded">
+    <div class="mt-[-20px] mb-5">
+      <p class="bg-white px-10 text-slate-400">Pagination</p>
+    </div>
     <div class="flex gap-2 justify-center">
       <button @click="firstHandle" :disabled="disableFirst">First</button>
       <button @click="previousHandle" :disabled="disablePrevious">Previous</button>
