@@ -18,7 +18,6 @@ const result = computed(() => {
   if (
     boundary.value > 0 
     && boundary.value < totalPage.value 
-    // && totalPage.value > (currentPage.value + 2 * boundary.value + 2 * sibling.value)
   ) {
     pagination.value = Array.from({length: boundary.value}, (_, i) => i + 1) 
     pagination.value.push(0)
@@ -27,7 +26,9 @@ const result = computed(() => {
       // rest value
       for (let y = (currentPage.value - sibling.value); y < (currentPage.value + sibling.value + 1); y++) {
         if (!pagination.value.includes(y)) {
-          pagination.value.push(y)
+          if (y <= totalPage.value) {
+            pagination.value.push(y)
+          }
         } else {
           pagination.value.splice(boundary.value, 1)
         }
@@ -41,9 +42,6 @@ const result = computed(() => {
           lastValue.push(z)
         }
       } 
-      // else {
-      //   lastValue.push(totalPage.value)
-      // }
 
       if (lastValue.length > 0) {
         lastValue = lastValue.sort((a, b) => a - b)
@@ -68,7 +66,6 @@ function previousHandle() {
   } else {
     currentPage.value = currentPage.value
   }
-
 }
 
 function toggleNext() {
@@ -104,13 +101,11 @@ function toggleDisable() {
 }
 
 function toCurrentPage(numberPage:number) {
-  debugger
-  if (currentPage.value < totalPage.value) {
+  if (numberPage <= totalPage.value) {
     currentPage.value = numberPage
   } else {
-    currentPage.value = currentPage.value
+    currentPage.value =  currentPage.value
   }
-
 }
 </script>
 
@@ -123,7 +118,7 @@ function toCurrentPage(numberPage:number) {
       <button class="hover:cursor-pointer" @click="firstHandle" :disabled="disableFirst"><ChevronDoubleLeftIcon class="text-slate-400 w-5" /></button>
       <button class="cursor-pointer" @click="previousHandle" :disabled="disablePrevious"><ChevronLeftIcon class="text-slate-400 w-5" /></button>
 
-      <div v-for="x in (result)" :key="x">
+      <div v-for="(x, key) in result" :key="key">
         <button 
           @click="toCurrentPage(x)"
           :class="[currentPage === x ? 'bg-blue-100' : '', 'cursor-pointer rounded-full p-2 mx-2']" 
