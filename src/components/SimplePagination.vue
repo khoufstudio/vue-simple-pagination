@@ -64,15 +64,23 @@ const result = computed(() => {
       <input class="border border-slate-200" type="number" v-model="currentPage">
     </legend>
 
-    <!-- current page -->
+    <!-- boundary -->
     <legend>
       <label class="mr-2" for="boundary">Boundary</label>
       <input class="border border-slate-200" type="number" v-model="boundary">
     </legend>
-    <!-- current page -->
+
+    <!-- sibling -->
     <legend>
       <label class="mr-2" for="sibling">Sibling</label>
       <input class="border border-slate-200" type="number" v-model="sibling">
     </legend>
+
+    <!-- sibling -->
+    <legend>
+      <label class="mr-2" for="sibling">Previous</label>
+      <input type="checkbox" name="previous" >
+    </legend>
+    
   </div>
 </template>
