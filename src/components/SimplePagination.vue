@@ -2,29 +2,36 @@
 import { ref } from 'vue'
 
 const totalPage = ref<number>(9)
+const currentPage = ref<number>(9)
 
 </script>
 
 <template>
   <div class="flex gap-2 justify-center">
     <!-- first button -->
-    <button v-if="totalPage > 0">1</button>
+    <button :class="[currentPage === 1 ? 'bg-blue-100' : '']" v-if="totalPage > 0">1</button>
 
     <!-- rest buttons  -->
     <div v-for="x in totalPage" :key="x">
-      <button v-if="x > 1 && x < totalPage">{{ x }}</button>
+      <button :class="[currentPage === x ? 'bg-blue-100' : '']" v-if="x > 1 && x < totalPage">{{ x }}</button>
     </div>
 
     <!-- last button -->
-    <button>{{ totalPage }}</button>
+    <button :class="[currentPage === totalPage ? 'bg-blue-100' : '']">{{ totalPage }}</button>
   </div>
 
   <!-- input container -->
   <div class="mt-4">
     <!-- total page -->
     <legend>
-      <label  class="mr-2" for="totalPage">total page</label>
+      <label class="mr-2" for="totalPage">total page</label>
       <input class="border border-slate-200" type="number" v-model="totalPage">
+    </legend>
+
+    <!-- current page -->
+    <legend>
+      <label class="mr-2" for="totalPage">current page</label>
+      <input class="border border-slate-200" type="number" v-model="currentPage">
     </legend>
   </div>
 </template>
