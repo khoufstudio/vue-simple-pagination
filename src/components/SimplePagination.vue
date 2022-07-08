@@ -85,7 +85,7 @@ function toggleFirst() {
 }
 
 function firstHandle() {
-  currentPage.value = currentPage.value 
+  currentPage.value = 1
 }
 
 function toggleLast() {
