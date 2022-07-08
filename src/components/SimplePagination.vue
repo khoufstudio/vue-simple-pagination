@@ -9,7 +9,7 @@ const sibling = ref<number>(1)
 const disablePrevious = ref<boolean>(true)
 const disableNext = ref<boolean>(true)
 const disableFirst = ref<boolean>(true)
-const disableLast = ref<boolean>(true)
+const disableLast = ref<boolean>(false)
 const disableAll = ref<boolean>(false)
 
 const pagination = ref<Array<number>>([1,2])
@@ -105,11 +105,18 @@ function lastHandle() {
 }
 
 function toggleDisable() {
-  disableLast.value = true
-  disableFirst.value = true
-  disableNext.value = true
-  disablePrevious.value = true
   disableAll.value = !disableAll.value
+  if (disableAll.value === true) {
+    disableLast.value = true
+    disableFirst.value = true
+    disableNext.value = true
+    disablePrevious.value = true
+  } else {
+    disableLast.value = false
+    disableFirst.value = false
+    disableNext.value = false
+    disablePrevious.value = false
+  }
 }
 
 function toCurrentPage(numberPage:number) {
@@ -133,7 +140,12 @@ function toCurrentPage(numberPage:number) {
       <div v-for="(x, key) in result" :key="key">
         <button 
           @click="toCurrentPage(x)"
-          :class="[currentPage === x ? 'bg-blue-100' : '', 'cursor-pointer rounded-full p-2 mx-2']" 
+          :class="[
+            currentPage === x ? 'bg-blue-100' : ''
+            , 'cursor-pointer rounded-full p-2 mx-2'
+            , disableAll === true ? 'text-slate-300' : 'text-slate-500'
+          ]" 
+          :disabled="disableAll"
         >{{ x === 0 ? '..' : x }}</button>
       </div>
       <button class="cursor-pointer" @click="nextHandle" :disabled="disableNext"><ChevronRightIcon class="text-slate-400 w-5" /></button>
@@ -188,8 +200,8 @@ function toCurrentPage(numberPage:number) {
 
         <!-- last -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">Last</label>
-          <input type="checkbox" name="previous" @change="toggleLast">
+          <label :class="['mr-2', disableLast ? 'text-slate-300' : '']" for="last">Last</label>
+          <input type="checkbox" name="previous" @change="toggleLast" :disabled="disableLast">
         </legend>
 
         <!-- disable -->
