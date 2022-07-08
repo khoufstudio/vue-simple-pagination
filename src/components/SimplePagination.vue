@@ -188,25 +188,25 @@ function toCurrentPage(numberPage:number) {
         
         <!-- next -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">Next</label>
-          <input type="checkbox" name="previous" @change="toggleNext">
+          <label :class="['mr-2', disableNext ? 'text-slate-300' : '']" for="next">Next</label>
+          <input type="checkbox" name="next" @change="toggleNext" :disabled="disableFirst">
         </legend>
 
         <!-- first -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">First</label>
-          <input type="checkbox" name="previous" @change="toggleFirst">
+          <label :class="['mr-2', disableFirst ? 'text-slate-300' : '']" for="first">First</label>
+          <input type="checkbox" name="first" @change="toggleFirst" :disabled="disableFirst">
         </legend>
 
         <!-- last -->
         <legend class="flex justify-between mb-3 items-center">
           <label :class="['mr-2', disableLast ? 'text-slate-300' : '']" for="last">Last</label>
-          <input type="checkbox" name="previous" @change="toggleLast" :disabled="disableLast">
+          <input type="checkbox" name="last" @change="toggleLast" :disabled="disableLast">
         </legend>
 
         <!-- disable -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="sibling">Disable</label>
+          <label class="mr-2" for="sibling">Disable All</label>
           <input type="checkbox" name="previous" @change="toggleDisable">
         </legend>
       </div>
