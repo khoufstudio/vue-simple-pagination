@@ -10,7 +10,7 @@ const disablePrevious = ref<boolean>(true)
 const disableNext = ref<boolean>(true)
 const disableFirst = ref<boolean>(true)
 const disableLast = ref<boolean>(true)
-const disableAll = ref<boolean>(true)
+const disableAll = ref<boolean>(false)
 
 const pagination = ref<Array<number>>([1,2])
 
@@ -57,7 +57,9 @@ const result = computed(() => {
 
 
 function togglePrevious() {
-  disablePrevious.value = !disablePrevious.value
+  if (disableAll.value === false) {
+    disablePrevious.value = !disablePrevious.value
+  }
 }
 
 function previousHandle() {
@@ -69,7 +71,9 @@ function previousHandle() {
 }
 
 function toggleNext() {
-  disableNext.value = !disableNext.value
+  if (disableAll.value === false) {
+    disableNext.value = !disableNext.value
+  }
 }
 
 function nextHandle() {
@@ -81,7 +85,9 @@ function nextHandle() {
 }
 
 function toggleFirst() {
-  disableFirst.value = !disableFirst.value
+  if (disableAll.value === false) {
+    disableFirst.value = !disableFirst.value
+  }
 }
 
 function firstHandle() {
@@ -89,7 +95,9 @@ function firstHandle() {
 }
 
 function toggleLast() {
-  disableLast.value = !disableLast.value
+  if (disableAll.value === false) {
+    disableLast.value = !disableLast.value
+  }
 }
 
 function lastHandle() {
@@ -97,6 +105,10 @@ function lastHandle() {
 }
 
 function toggleDisable() {
+  disableLast.value = true
+  disableFirst.value = true
+  disableNext.value = true
+  disablePrevious.value = true
   disableAll.value = !disableAll.value
 }
 
