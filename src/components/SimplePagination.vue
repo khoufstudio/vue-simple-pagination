@@ -57,7 +57,11 @@ const result = computed(() => {
 
 
 function togglePrevious() {
-  disablePrevious.value = !disablePrevious.value
+  if (disableAll.value) {
+    disablePrevious.value = true
+  } else {
+    disablePrevious.value = !disablePrevious.value
+  }
 }
 
 function previousHandle() {
@@ -69,7 +73,11 @@ function previousHandle() {
 }
 
 function toggleNext() {
-  disableNext.value = !disableNext.value
+  if (disableAll.value) {
+    disableNext.value = true
+  } else {
+    disableNext.value = !disableNext.value
+  }
 }
 
 function nextHandle() {
@@ -81,7 +89,11 @@ function nextHandle() {
 }
 
 function toggleFirst() {
-  disableFirst.value = !disableFirst.value
+  if (disableAll.value) {
+    disableFirst.value = true
+  } else {
+    disableFirst.value = !disableFirst.value
+  }
 }
 
 function firstHandle() {
@@ -89,7 +101,11 @@ function firstHandle() {
 }
 
 function toggleLast() {
-  disableLast.value = !disableLast.value
+  if (disableAll.value) {
+    disableLast.value = true
+  } else {
+    disableLast.value = !disableLast.value
+  }
 }
 
 function lastHandle() {
