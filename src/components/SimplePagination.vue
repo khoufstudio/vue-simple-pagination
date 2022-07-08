@@ -26,7 +26,7 @@ const result = computed(() => {
       // rest value
       for (let y = (currentPage.value - sibling.value); y < (currentPage.value + sibling.value + 1); y++) {
         if (!pagination.value.includes(y)) {
-          if (y <= totalPage.value) {
+          if (y <= totalPage.value && y > 0) {
             pagination.value.push(y)
           }
         } else {
