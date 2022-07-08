@@ -182,8 +182,8 @@ function toCurrentPage(numberPage:number) {
       <div>
         <!-- previous -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-4" for="sibling">Previous</label>
-          <input type="checkbox" name="previous" @change="togglePrevious">
+          <label :class="['mr-2', disablePrevious ? 'text-slate-300' : '']" for="previous">Previous</label>
+          <input type="checkbox" name="previous" @change="togglePrevious" :disabled="disableFirst">
         </legend>
         
         <!-- next -->
