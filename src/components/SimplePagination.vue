@@ -157,51 +157,51 @@ function toCurrentPage(numberPage:number) {
       <div>
         <!-- total page -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-4" for="totalPage">Total page</label>
-          <input class="border border-slate-200 w-12 text-center" type="number" v-model="totalPage">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="next">Total Page</label>
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="totalPage" :disabled="disableAll">
         </legend>
 
         <!-- current page -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="currentPage">Current page</label>
-          <input class="border border-slate-200 w-12 text-center" type="number" v-model="currentPage">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="currentPage">Current Page</label>
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="currentPage" :disabled="disableAll">
         </legend>
 
         <!-- boundary -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-2" for="boundary">Boundary</label>
-          <input class="border border-slate-200 w-12 text-center" type="number" v-model="boundary">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="next">Boundary</label>
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="boundary" :disabled="disableAll">
         </legend>
 
         <!-- sibling -->
         <legend class="flex justify-between mb-3 items-center">
-          <label class="mr-4" for="sibling">Sibling</label>
-          <input class="border border-slate-200 w-12 text-center" type="number" v-model="sibling">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="sibling">Sibling</label>
+          <input class="border border-slate-200 w-12 text-center" type="number" v-model="sibling" :disabled="disableAll">
         </legend>
       </div>
       <div>
         <!-- previous -->
         <legend class="flex justify-between mb-3 items-center">
-          <label :class="['mr-2', disablePrevious ? 'text-slate-300' : '']" for="previous">Previous</label>
-          <input type="checkbox" name="previous" @change="togglePrevious" :disabled="disableFirst">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="previous">Previous</label>
+          <input type="checkbox" name="previous" @change="togglePrevious" :disabled="disableAll">
         </legend>
         
         <!-- next -->
         <legend class="flex justify-between mb-3 items-center">
-          <label :class="['mr-2', disableNext ? 'text-slate-300' : '']" for="next">Next</label>
-          <input type="checkbox" name="next" @change="toggleNext" :disabled="disableFirst">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="next">Next</label>
+          <input type="checkbox" name="next" @change="toggleNext" :disabled="disableAll">
         </legend>
 
         <!-- first -->
         <legend class="flex justify-between mb-3 items-center">
-          <label :class="['mr-2', disableFirst ? 'text-slate-300' : '']" for="first">First</label>
-          <input type="checkbox" name="first" @change="toggleFirst" :disabled="disableFirst">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="first">First</label>
+          <input type="checkbox" name="first" @change="toggleFirst" :disabled="disableAll">
         </legend>
 
         <!-- last -->
         <legend class="flex justify-between mb-3 items-center">
-          <label :class="['mr-2', disableLast ? 'text-slate-300' : '']" for="last">Last</label>
-          <input type="checkbox" name="last" @change="toggleLast" :disabled="disableLast">
+          <label :class="['mr-2', disableAll ? 'text-slate-300' : '']" for="last">Last</label>
+          <input type="checkbox" name="last" @change="toggleLast" :disabled="disableAll">
         </legend>
 
         <!-- disable -->
@@ -210,7 +210,6 @@ function toCurrentPage(numberPage:number) {
           <input type="checkbox" name="previous" @change="toggleDisable">
         </legend>
       </div>
-
     </div>
   </div>
 </template>
