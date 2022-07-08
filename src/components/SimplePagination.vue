@@ -57,9 +57,7 @@ const result = computed(() => {
 
 
 function togglePrevious() {
-  if (disableAll.value === false) {
-    disablePrevious.value = !disablePrevious.value
-  }
+  disablePrevious.value = !disablePrevious.value
 }
 
 function previousHandle() {
@@ -71,9 +69,7 @@ function previousHandle() {
 }
 
 function toggleNext() {
-  if (disableAll.value === false) {
-    disableNext.value = !disableNext.value
-  }
+  disableNext.value = !disableNext.value
 }
 
 function nextHandle() {
@@ -85,9 +81,7 @@ function nextHandle() {
 }
 
 function toggleFirst() {
-  if (disableAll.value === false) {
-    disableFirst.value = !disableFirst.value
-  }
+  disableFirst.value = !disableFirst.value
 }
 
 function firstHandle() {
@@ -95,9 +89,7 @@ function firstHandle() {
 }
 
 function toggleLast() {
-  if (disableAll.value === false) {
-    disableLast.value = !disableLast.value
-  }
+  disableLast.value = !disableLast.value
 }
 
 function lastHandle() {
@@ -106,17 +98,6 @@ function lastHandle() {
 
 function toggleDisable() {
   disableAll.value = !disableAll.value
-  if (disableAll.value === true) {
-    disableLast.value = true
-    disableFirst.value = true
-    disableNext.value = true
-    disablePrevious.value = true
-  } else {
-    disableLast.value = false
-    disableFirst.value = false
-    disableNext.value = false
-    disablePrevious.value = false
-  }
 }
 
 function toCurrentPage(numberPage:number) {
